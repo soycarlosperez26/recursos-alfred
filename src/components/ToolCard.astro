@@ -38,4 +38,9 @@ const whatsappUrl = buildWhatsappUrl(herramienta.whatsappMensaje);
     Solicitar información
     <Icon name="ArrowRight" class="h-4 w-4" />
   </a>
+  {
+    herramienta.demoUrl && (
+      <a href={herramienta.demoUrl} target="_blank" rel="noopener noreferrer" class="text-sm btn-primary mt-2 !py-1">Ver Demo</a>
+    )
+  }
 </article>

@@ -7,6 +7,7 @@ export interface Herramienta {
   estado: Estado;
   icon: string; // nombre de icono lucide
   whatsappMensaje: string;
+  demoUrl?: string;
 }
 
 export interface CategoriaHerramientas {
@@ -30,6 +31,7 @@ export const categorias: CategoriaHerramientas[] = [
         estado: "Freemium",
         icon: "Clock",
         whatsappMensaje: "Hola, estoy interesado en la herramienta Control de Asistencia.",
+        demoUrl: "https://asistencia-operativa.vercel.app/",
       },
       {
         slug: "calculadora-horas-extras",
