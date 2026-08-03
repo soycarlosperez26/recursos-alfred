@@ -4,8 +4,7 @@ export const SITE = {
   name: "Recursos Alfred",
   domain: "recursosalfred.online",
   url: "https://recursosalfred.online",
-  // TODO: reemplaza por tu Measurement ID real de GA4 (formato G-XXXXXXXXXX)
-  gaMeasurementId: "G-XXXXXXXXXX",
+  gtmId: "GTM-K8RM895W",
   whatsappNumber: "573044775117",
   email: "contacto@recursosalfred.online",
   linkedin: "https://www.linkedin.com/company/recursos-alfred",
