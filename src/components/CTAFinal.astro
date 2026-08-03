@@ -1,0 +1,32 @@
+---
+import Icon from "./Icon.astro";
+import { buildWhatsappUrl } from "../data/site";
+
+const whatsappUrl = buildWhatsappUrl(
+  "Hola, quiero automatizar mi empresa. Cuéntenme cómo pueden ayudarme."
+);
+---
+
+<section id="contacto" class="py-20 sm:py-24">
+  <div class="container-page">
+    <div class="overflow-hidden rounded-3xl bg-brand-700 px-8 py-14 text-center shadow-xl sm:px-16">
+      <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+        ¿Listo para automatizar tu empresa?
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl text-brand-100">
+        Cuéntanos qué necesita tu pyme y te ayudamos a encontrar la mejor herramienta o solución,
+        sin compromiso.
+      </p>
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-whatsapp-cta="cta-final"
+        class="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-brand-700 shadow-sm transition hover:bg-brand-50"
+      >
+        <Icon name="MessageCircle" class="h-5 w-5" />
+        Hablar por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,51 @@
+---
+import Icon from "./Icon.astro";
+
+const razones = [
+  {
+    icon: "Award",
+    titulo: "Experiencia",
+    texto: "Más de 10 años desarrollando soluciones de software para empresas.",
+  },
+  {
+    icon: "Zap",
+    titulo: "Automatización",
+    texto: "Reducimos las tareas repetitivas que le quitan tiempo a tu equipo.",
+  },
+  {
+    icon: "TrendingUp",
+    titulo: "Escalable",
+    texto: "Nuestras herramientas crecen junto con tu empresa, sin sobrecostos.",
+  },
+  {
+    icon: "HeartHandshake",
+    titulo: "Soporte cercano",
+    texto: "Te acompañamos por WhatsApp durante todo el proceso, en español y sin tecnicismos.",
+  },
+];
+---
+
+<section id="por-que-elegirnos" aria-labelledby="elegirnos-titulo" class="bg-slate-50/60 py-20 sm:py-24">
+  <div class="container-page">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="section-eyebrow">Por qué elegirnos</p>
+      <h2 id="elegirnos-titulo" class="mt-2 text-3xl font-extrabold text-slate-900 sm:text-4xl">
+        La solución tecnológica pensada para pymes de la Costa Caribe
+      </h2>
+    </div>
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        razones.map((r) => (
+          <div class="rounded-2xl bg-white p-6 text-center shadow-sm">
+            <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-brand-600 text-white">
+              <Icon name={r.icon} class="h-6 w-6" />
+            </span>
+            <h3 class="mt-4 font-semibold text-slate-900">{r.titulo}</h3>
+            <p class="mt-2 text-sm text-slate-600">{r.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

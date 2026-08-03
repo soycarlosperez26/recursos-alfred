@@ -1,0 +1,54 @@
+---
+import Icon from "./Icon.astro";
+
+const beneficios = [
+  {
+    icon: "Zap",
+    titulo: "Automatización",
+    texto: "Reduce horas de trabajo manual en tareas repetitivas de tu empresa.",
+  },
+  {
+    icon: "Bot",
+    titulo: "Inteligencia Artificial",
+    texto: "Integra IA en tu empresa para procesar documentos e información al instante.",
+  },
+  {
+    icon: "Link2",
+    titulo: "Integraciones",
+    texto: "Conecta tus sistemas existentes sin migrar toda tu operación.",
+  },
+  {
+    icon: "Code2",
+    titulo: "Desarrollo a la medida",
+    texto: "Creamos soluciones personalizadas para las necesidades reales de tu pyme.",
+  },
+];
+---
+
+<section aria-labelledby="beneficios-titulo" class="py-20 sm:py-24">
+  <div class="container-page">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="section-eyebrow">Beneficios</p>
+      <h2 id="beneficios-titulo" class="mt-2 text-3xl font-extrabold text-slate-900 sm:text-4xl">
+        Soluciones digitales pensadas para pymes colombianas
+      </h2>
+      <p class="mt-4 text-slate-600">
+        Menos procesos manuales, menos errores y más tiempo para hacer crecer tu negocio.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        beneficios.map((b) => (
+          <div class="rounded-2xl border border-slate-100 p-6 transition hover:border-brand-200 hover:shadow-lg hover:shadow-brand-50">
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+              <Icon name={b.icon} class="h-6 w-6" />
+            </span>
+            <h3 class="mt-4 font-semibold text-slate-900">{b.titulo}</h3>
+            <p class="mt-2 text-sm text-slate-600">{b.texto}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

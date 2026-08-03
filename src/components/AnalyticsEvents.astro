@@ -1,0 +1,20 @@
+---
+// Registra en Google Analytics 4 cada clic en un botón de WhatsApp,
+// identificando qué herramienta o sección generó el contacto.
+---
+
+<script is:inline>
+  document.addEventListener("click", function (event) {
+    const target = event.target instanceof Element ? event.target.closest("[data-whatsapp-cta]") : null;
+    if (!target) return;
+
+    const source = target.getAttribute("data-whatsapp-cta") || "desconocido";
+
+    if (typeof window.gtag === "function") {
+      window.gtag("event", "whatsapp_click", {
+        event_category: "contacto",
+        event_label: source,
+      });
+    }
+  });
+</script>

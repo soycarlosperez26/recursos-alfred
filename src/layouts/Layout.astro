@@ -1,0 +1,117 @@
+---
+import { SITE } from "../data/site";
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description,
+  ogImage = "/og-image.png",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const absoluteOgImage = new URL(ogImage, Astro.site).toString();
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: SITE.name,
+  url: SITE.url,
+  description:
+    "Automatización de procesos, inteligencia artificial y desarrollo de software a la medida para pequeñas y medianas empresas de la Costa Caribe colombiana.",
+  areaServed: {
+    "@type": "AdministrativeArea",
+    name: "Costa Caribe, Colombia",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressRegion: "Costa Caribe",
+    addressCountry: "CO",
+  },
+  telephone: `+${SITE.whatsappNumber}`,
+  email: SITE.email,
+  sameAs: [SITE.linkedin, SITE.github],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE.name,
+  url: SITE.url,
+  inLanguage: "es-CO",
+};
+---
+
+<!doctype html>
+<html lang="es-CO">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="theme-color" content="#2563eb" />
+
+    <!-- SEO primario -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="automatización empresarial, herramientas para pymes, inteligencia artificial para empresas, software para pymes Colombia, automatización costa caribe, recursos humanos digital, logística pymes, desarrollo de software Barranquilla, consultoría tecnológica Cartagena"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content={SITE.name} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:site_name" content={SITE.name} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteOgImage} />
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Datos estructurados (JSON-LD) para SEO -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
+
+    <!-- Google Analytics 4 -->
+    <!-- TODO: reemplaza SITE.gaMeasurementId en src/data/site.ts por tu Measurement ID real antes de publicar -->
+    <script
+      is:inline
+      async
+      src={`https://www.googletagmanager.com/gtag/js?id=${SITE.gaMeasurementId}`}
+    ></script>
+    <script is:inline define:vars={{ gaId: SITE.gaMeasurementId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", gaId, { anonymize_ip: true });
+      window.gtag = gtag;
+    </script>
+  </head>
+  <body class="bg-white text-slate-900 antialiased">
+    <slot />
+  </body>
+</html>

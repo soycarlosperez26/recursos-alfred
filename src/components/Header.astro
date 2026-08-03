@@ -1,0 +1,36 @@
+---
+import { SITE, buildWhatsappUrl } from "../data/site";
+import Icon from "./Icon.astro";
+
+const whatsappUrl = buildWhatsappUrl("Hola, quiero más información sobre Recursos Alfred.");
+---
+
+<header class="sticky top-0 z-50 border-b border-slate-100 bg-white/80 backdrop-blur">
+  <nav class="container-page flex h-16 items-center justify-between" aria-label="Principal">
+    <a href="#inicio" class="flex items-center gap-2 font-extrabold text-slate-900">
+      <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white">
+        <Icon name="Sparkles" class="h-4 w-4" />
+      </span>
+      <span class="text-lg">{SITE.name}<span class="text-brand-600">.online</span></span>
+    </a>
+
+    <div class="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
+      <a href="#herramientas" class="transition hover:text-brand-700">Herramientas</a>
+      <a href="#servicios" class="transition hover:text-brand-700">Servicios</a>
+      <a href="#por-que-elegirnos" class="transition hover:text-brand-700">Por qué elegirnos</a>
+      <a href="#contacto" class="transition hover:text-brand-700">Contacto</a>
+    </div>
+
+    <a
+      href={whatsappUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-whatsapp-cta="header"
+      class="btn-whatsapp !px-4 !py-2 text-sm"
+    >
+      <Icon name="MessageCircle" class="h-4 w-4" />
+      <span class="hidden sm:inline">Hablar por WhatsApp</span>
+      <span class="sm:hidden">WhatsApp</span>
+    </a>
+  </nav>
+</header>

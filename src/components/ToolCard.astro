@@ -1,0 +1,41 @@
+---
+import Icon from "./Icon.astro";
+import { buildWhatsappUrl } from "../data/site";
+import type { Herramienta } from "../data/herramientas";
+
+interface Props {
+  herramienta: Herramienta;
+}
+
+const { herramienta } = Astro.props;
+
+const badgeClass: Record<string, string> = {
+  Gratis: "badge-gratis",
+  Freemium: "badge-freemium",
+  Premium: "badge-premium",
+  "Próximamente": "badge-proximamente",
+};
+
+const whatsappUrl = buildWhatsappUrl(herramienta.whatsappMensaje);
+---
+
+<article class="flex flex-col rounded-2xl border border-slate-100 bg-white p-6 transition hover:border-brand-200 hover:shadow-lg hover:shadow-brand-50">
+  <div class="flex items-start justify-between">
+    <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+      <Icon name={herramienta.icon} class="h-5 w-5" />
+    </span>
+    <span class={`badge ${badgeClass[herramienta.estado]}`}>{herramienta.estado}</span>
+  </div>
+  <h3 class="mt-4 font-semibold text-slate-900">{herramienta.nombre}</h3>
+  <p class="mt-2 flex-1 text-sm text-slate-600">{herramienta.descripcion}</p>
+  <a
+    href={whatsappUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    data-whatsapp-cta={herramienta.slug}
+    class="btn-secondary mt-5 !py-2 text-sm"
+  >
+    Solicitar información
+    <Icon name="ArrowRight" class="h-4 w-4" />
+  </a>
+</article>
