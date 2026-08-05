@@ -50,3 +50,35 @@ const grupos = getVisibleToolsByCategory();
     }
   </div>
 </section>
+
+<script is:inline>
+  document.addEventListener("click", function (event) {
+    const target = event.target instanceof Element ? event.target : null;
+    if (!target) return;
+
+    const openTrigger = target.closest("[data-open-modal]");
+    if (openTrigger) {
+      const dialog = document.getElementById(openTrigger.getAttribute("data-open-modal") || "");
+      if (dialog instanceof HTMLDialogElement) dialog.showModal();
+      return;
+    }
+
+    const closeTrigger = target.closest("[data-close-modal]");
+    if (closeTrigger) {
+      const dialog = closeTrigger.closest("dialog");
+      dialog?.close();
+      return;
+    }
+
+    // Cierra al hacer clic en el backdrop (fuera del contenido del modal).
+    if (target instanceof HTMLDialogElement && target.hasAttribute("open")) {
+      const rect = target.getBoundingClientRect();
+      const clickedInside =
+        rect.top <= event.clientY &&
+        event.clientY <= rect.top + rect.height &&
+        rect.left <= event.clientX &&
+        event.clientX <= rect.left + rect.width;
+      if (!clickedInside) target.close();
+    }
+  });
+</script>

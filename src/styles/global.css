@@ -72,3 +72,15 @@ body {
 .badge-proximamente {
   @apply bg-slate-100 text-slate-600;
 }
+
+.tool-modal {
+  @apply mx-auto w-[90vw] max-w-2xl rounded-2xl border-none p-0 shadow-2xl;
+}
+
+.tool-modal::backdrop {
+  @apply bg-slate-900/60 backdrop-blur-sm;
+}
+
+body:has(dialog[open]) {
+  overflow: hidden;
+}
