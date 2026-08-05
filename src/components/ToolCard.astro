@@ -1,46 +1,74 @@
 ---
 import Icon from "./Icon.astro";
 import { buildWhatsappUrl } from "../data/site";
-import type { Herramienta } from "../data/herramientas";
+import type { Tool } from "../data/tools.config";
 
 interface Props {
-  herramienta: Herramienta;
+  tool: Tool;
 }
 
-const { herramienta } = Astro.props;
+const { tool } = Astro.props;
 
-const badgeClass: Record<string, string> = {
+const badgeClass: Record<Tool["pricingTier"], string> = {
   Gratis: "badge-gratis",
   Freemium: "badge-freemium",
   Premium: "badge-premium",
-  "Próximamente": "badge-proximamente",
 };
 
-const whatsappUrl = buildWhatsappUrl(herramienta.whatsappMensaje);
+const whatsappUrl = buildWhatsappUrl(tool.whatsappMessage);
+const fullStars = Math.round(Math.min(5, Math.max(0, tool.rate)));
 ---
 
 <article class="flex flex-col rounded-2xl border border-slate-100 bg-white p-6 transition hover:border-brand-200 hover:shadow-lg hover:shadow-brand-50">
   <div class="flex items-start justify-between">
-    <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
-      <Icon name={herramienta.icon} class="h-5 w-5" />
-    </span>
-    <span class={`badge ${badgeClass[herramienta.estado]}`}>{herramienta.estado}</span>
+    {
+      tool.picture ? (
+        <img
+          src={tool.picture}
+          alt={tool.name}
+          class="h-11 w-11 rounded-xl object-cover"
+          loading="lazy"
+        />
+      ) : (
+        <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+          <Icon name={tool.icon} class="h-5 w-5" />
+        </span>
+      )
+    }
+    <span class={`badge ${badgeClass[tool.pricingTier]}`}>{tool.pricingTier}</span>
   </div>
-  <h3 class="mt-4 font-semibold text-slate-900">{herramienta.nombre}</h3>
-  <p class="mt-2 flex-1 text-sm text-slate-600">{herramienta.descripcion}</p>
+
+  <h3 class="mt-4 font-semibold text-slate-900">{tool.name}</h3>
+  <p class="mt-2 flex-1 text-sm text-slate-600">{tool.description}</p>
+
+  {
+    tool.rate > 0 && (
+      <div class="mt-3 flex items-center gap-0.5" aria-label={`Calificación: ${tool.rate} de 5`}>
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Icon
+            name="Star"
+            class={`h-4 w-4 ${i < fullStars ? "fill-amber-400 text-amber-400" : "text-slate-200"}`}
+          />
+        ))}
+      </div>
+    )
+  }
+
   <a
     href={whatsappUrl}
     target="_blank"
     rel="noopener noreferrer"
-    data-whatsapp-cta={herramienta.slug}
+    data-whatsapp-cta={tool.id}
     class="btn-secondary mt-5 !py-2 text-sm"
   >
     Solicitar información
     <Icon name="ArrowRight" class="h-4 w-4" />
   </a>
   {
-    herramienta.demoUrl && (
-      <a href={herramienta.demoUrl} target="_blank" rel="noopener noreferrer" class="text-sm btn-primary mt-2 !py-1">Ver Demo</a>
+    tool.hasDemo && tool.demoUrl && (
+      <a href={tool.demoUrl} target="_blank" rel="noopener noreferrer" class="text-sm btn-primary mt-2 !py-1">
+        Ver Demo
+      </a>
     )
   }
 </article>

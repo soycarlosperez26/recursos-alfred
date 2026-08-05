@@ -1,8 +1,10 @@
 ---
 import { SITE, buildWhatsappUrl } from "../data/site";
+import { getPublishedToolsCount } from "../data/tools.config";
 import Icon from "./Icon.astro";
 
 const whatsappUrl = buildWhatsappUrl("Hola, quiero automatizar procesos en mi empresa.");
+const herramientasDisponibles = getPublishedToolsCount();
 ---
 
 <section id="inicio" class="relative overflow-hidden bg-gradient-to-b from-brand-50 via-white to-white pt-16 pb-20 sm:pt-24 sm:pb-28">
@@ -45,8 +47,10 @@ const whatsappUrl = buildWhatsappUrl("Hola, quiero automatizar procesos en mi em
           <dd class="text-sm text-slate-500">años de experiencia</dd>
         </div>
         <div>
-          <dt class="text-2xl font-extrabold text-slate-900">25+</dt>
-          <dd class="text-sm text-slate-500">herramientas disponibles</dd>
+          <dt class="text-2xl font-extrabold text-slate-900">{herramientasDisponibles}</dt>
+          <dd class="text-sm text-slate-500">
+            {herramientasDisponibles === 1 ? "herramienta disponible" : "herramientas disponibles"}
+          </dd>
         </div>
         <div>
           <dt class="text-2xl font-extrabold text-slate-900">7</dt>

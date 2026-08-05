@@ -1,7 +1,9 @@
 ---
 import Icon from "./Icon.astro";
 import ToolCard from "./ToolCard.astro";
-import { categorias } from "../data/herramientas";
+import { getVisibleToolsByCategory } from "../data/tools.config";
+
+const grupos = getVisibleToolsByCategory();
 ---
 
 <section id="herramientas" aria-labelledby="herramientas-titulo" class="bg-slate-50/60 py-20 sm:py-24">
@@ -17,28 +19,34 @@ import { categorias } from "../data/herramientas";
       </p>
     </div>
 
-    <div class="mt-16 space-y-16">
-      {
-        categorias.map((cat) => (
-          <div id={cat.categoria.toLowerCase().replace(/\s+/g, "-")}>
-            <div class="flex items-center gap-3">
-              <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-white">
-                <Icon name={cat.icon} class="h-5 w-5" />
-              </span>
-              <div>
-                <h3 class="text-xl font-bold text-slate-900">{cat.categoria}</h3>
-                <p class="text-sm text-slate-500">{cat.descripcion}</p>
+    {
+      grupos.length === 0 ? (
+        <p class="mt-16 text-center text-slate-500">
+          Estamos construyendo las primeras herramientas. Muy pronto estarán disponibles aquí.
+        </p>
+      ) : (
+        <div class="mt-16 space-y-16">
+          {grupos.map((grupo) => (
+            <div id={grupo.category.toLowerCase().replace(/\s+/g, "-")}>
+              <div class="flex items-center gap-3">
+                <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600 text-white">
+                  <Icon name={grupo.meta.icon} class="h-5 w-5" />
+                </span>
+                <div>
+                  <h3 class="text-xl font-bold text-slate-900">{grupo.category}</h3>
+                  <p class="text-sm text-slate-500">{grupo.meta.descripcion}</p>
+                </div>
+              </div>
+
+              <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {grupo.tools.map((tool) => (
+                  <ToolCard tool={tool} />
+                ))}
               </div>
             </div>
-
-            <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {cat.herramientas.map((h) => (
-                <ToolCard herramienta={h} />
-              ))}
-            </div>
-          </div>
-        ))
-      }
-    </div>
+          ))}
+        </div>
+      )
+    }
   </div>
 </section>
